@@ -23,21 +23,21 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<CustomErrorDTO> resourceNotFound(ResourceNotFoundException e, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
+        HttpStatus status = HttpStatus.NOT_FOUND; // 404
         CustomErrorDTO err = new CustomErrorDTO(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 
     @ExceptionHandler(DatabaseException.class)
     public ResponseEntity<CustomErrorDTO> database(DatabaseException e, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+        HttpStatus status = HttpStatus.BAD_REQUEST; // 400
         CustomErrorDTO err = new CustomErrorDTO(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<CustomErrorDTO> methodArgumentNotValidation(MethodArgumentNotValidException e, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY; // 422
         ValidationErrorDTO err = new ValidationErrorDTO(Instant.now(), status.value(), "Dados inválidos", request.getRequestURI());
         for (FieldError f : e.getBindingResult().getFieldErrors()) {
             err.addError(f.getField(), f.getDefaultMessage());
@@ -47,7 +47,7 @@ public class ControllerExceptionHandler {
     
     @ExceptionHandler(ForbiddenException.class)
 	public ResponseEntity<CustomErrorDTO> forbidden(ForbiddenException e, HttpServletRequest request) {
-		HttpStatus status = HttpStatus.FORBIDDEN;
+		HttpStatus status = HttpStatus.FORBIDDEN; // 403
 		CustomErrorDTO err = new CustomErrorDTO(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
 				
 		return ResponseEntity.status(status).body(err);
