@@ -9,6 +9,9 @@ public class OrderItemDTO {
 	private Double price;
 	private Integer quantity;
 
+	public OrderItemDTO() {
+	}
+	
 	public OrderItemDTO(Long productId, String name, Double price, Integer quantity, Double subTotal) {
 		this.productId = productId;
 		this.name = name;
@@ -42,5 +45,4 @@ public class OrderItemDTO {
 	public Double getSubTotal() {
 		return price * quantity;
 	}
-	
 }
